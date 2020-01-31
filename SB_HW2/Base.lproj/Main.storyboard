@@ -46,13 +46,13 @@
                                             <action selector="greenSliderChanged" destination="BYZ-38-t0r" eventType="valueChanged" id="Jue-Xg-ndB"/>
                                         </connections>
                                     </slider>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mb5-oF-B8G">
+                                    <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mb5-oF-B8G">
                                         <rect key="frame" x="320.5" y="0.0" width="53.5" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="53.5" id="tJp-Wc-FEW"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                     </textField>
                                 </subviews>
                             </stackView>
@@ -114,13 +114,13 @@
                                             <action selector="blueSliderChanged" destination="BYZ-38-t0r" eventType="valueChanged" id="Q4X-K8-JcI"/>
                                         </connections>
                                     </slider>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wd4-7X-YK6">
+                                    <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wd4-7X-YK6">
                                         <rect key="frame" x="320.5" y="0.0" width="53.5" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="53.5" id="nLK-kQ-9Ab"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                     </textField>
                                 </subviews>
                             </stackView>
@@ -147,11 +147,14 @@
                     <connections>
                         <outlet property="blueLabel" destination="tAf-eg-vXP" id="8Qg-61-cd3"/>
                         <outlet property="blueSlider" destination="wsp-0f-kYA" id="ptv-e2-2OW"/>
+                        <outlet property="blueTextField" destination="Wd4-7X-YK6" id="1vQ-2b-WMk"/>
                         <outlet property="colorView" destination="uX8-o6-7OF" id="1xk-Il-YHx"/>
                         <outlet property="greenLabel" destination="4WZ-fY-pix" id="nOG-xb-43K"/>
                         <outlet property="greenSlider" destination="yW4-jR-Xde" id="vkN-5g-klm"/>
+                        <outlet property="greenTextField" destination="mb5-oF-B8G" id="fXA-zG-eUW"/>
                         <outlet property="redLabel" destination="Nv9-fM-02h" id="C1u-Rf-kDG"/>
                         <outlet property="redSlider" destination="Grw-SG-QGD" id="rp1-8a-YEE"/>
+                        <outlet property="redTextField" destination="pzt-NI-CPb" id="udM-xx-rlY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
