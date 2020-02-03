@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController {
+    
+    //MARK: properties
     
     @IBOutlet var colorView: UIView!
     @IBOutlet var redLabel: UILabel!
@@ -27,6 +29,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var currentBlue: Float = 0.8
     var currentGreen: Float = 0.2
     
+    //MARK:
     
     override func viewDidLoad() {
         
@@ -51,27 +54,29 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func redSliderChanged() {
         currentRed = redSlider.value
-        sliderWasChanged(slider: redSlider, slidersLabel: redLabel, slidersColor: currentRed)
+        sliderWasChanged(slider: redSlider, slidersLabel: redLabel, slidersColor: currentRed, textField: redTextField)
     }
     
     @IBAction func greenSliderChanged() {
         currentGreen = greenSlider.value
-        sliderWasChanged(slider: greenSlider, slidersLabel: greenLabel, slidersColor: currentGreen)
+        sliderWasChanged(slider: greenSlider, slidersLabel: greenLabel, slidersColor: currentGreen, textField: greenTextField)
     }
     
     @IBAction func blueSliderChanged() {
         currentBlue = blueSlider.value
-        sliderWasChanged(slider: blueSlider, slidersLabel: greenLabel, slidersColor: currentBlue)
+        sliderWasChanged(slider: blueSlider, slidersLabel: greenLabel, slidersColor: currentBlue, textField: blueTextField)
     }
-    
-   
+}
+
     //MARK: UITextFieldDelegate
+    
+extension ViewController: UITextFieldDelegate {
     //скрываем клавиатуру при нажатии кнопки
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
            textField.resignFirstResponder()
            return true
        }
-    //скрываем клавиатуру при тапу на экран
+    //скрываем клавиатуру при тапе на экран
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         
@@ -105,9 +110,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 }
                 
                  updateViewColor(view: colorView)
-    }
-    //MARK: function
-    
+        }
+}
+   
+//MARK: functions
+
+extension ViewController {
+ 
     func showSlider(slider: UISlider, min: Float, max: Float, value: Float, color: UIColor) {
         slider.minimumValue = min
         slider.maximumValue = max
@@ -119,8 +128,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         view.backgroundColor = UIColor(displayP3Red: CGFloat(currentRed), green: CGFloat(currentGreen), blue: CGFloat(currentBlue), alpha: 1)
     }
     
-    func sliderWasChanged(slider: UISlider, slidersLabel: UILabel, slidersColor: Float) {
+    func sliderWasChanged(slider: UISlider, slidersLabel: UILabel, slidersColor: Float, textField: UITextField) {
         slidersLabel.text = String(format: "%02.2f", slidersColor)
+        textField.text = String(format: "%02.2f", slidersColor)
         updateViewColor(view: colorView)
     }
     
@@ -134,4 +144,5 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
 }
+
 
