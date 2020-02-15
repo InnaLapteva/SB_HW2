@@ -8,10 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ColorViewController: UIViewController {
     
     //MARK: properties
-    
     @IBOutlet var colorView: UIView!
     @IBOutlet var redLabel: UILabel!
     @IBOutlet var greenLabel: UILabel!
@@ -25,34 +24,31 @@ class ViewController: UIViewController {
     @IBOutlet var greenTextField: UITextField!
     @IBOutlet var blueTextField: UITextField!
     
-
-    //MARK:Lifecycle
+    var ColorOfMainView = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
     
+    var delegate: ColorViewControllerDelegate!
+    
+    //MARK:Lifecycle
     override func viewDidLoad() {
+        super.viewDidLoad()
         
-        showSlider(slider: redSlider, min: 0, max: 1, value: redSlider.value, color: .red)
-        showSlider(slider: greenSlider, min: 0, max: 1, value: greenSlider.value, color: .green)
-        showSlider(slider: blueSlider, min: 0, max: 1, value: blueSlider.value, color: .blue)
-        
-        redLabel.text = String(redSlider.value)
-        greenLabel.text = String(greenSlider.value)
-        blueLabel.text = String(blueSlider.value)
-        
+        setSliderValue()
+        loadUIElements()
         colorView.layer.cornerRadius = 20
+        
         updateViewColor(view: colorView)
         
         addDoneButtonOnKeyboard()
-        
-        super.viewDidLoad()
-        
+
         redTextField.delegate = self
         greenTextField.delegate = self
         blueTextField.delegate = self
     }
     
     
+    //MARK: IB Actions
     @IBAction func redSliderChanged() {
-      
+        
         sliderWasChanged(slider: redSlider, slidersLabel: redLabel, slidersColor: redSlider.value, textField: redTextField)
     }
     
@@ -62,14 +58,22 @@ class ViewController: UIViewController {
     }
     
     @IBAction func blueSliderChanged() {
-
+        
         sliderWasChanged(slider: blueSlider, slidersLabel: greenLabel, slidersColor: blueSlider.value, textField: blueTextField)
     }
+    
+    
+  //MARK: Navigation
+    @IBAction func doneButtonPressed() {
+        delegate.updateBackgroundColor(color: ColorOfMainView)
+        dismiss(animated: true)
+    }
+    
 }
 
 //MARK: UITextFieldDelegate
 
-extension ViewController: UITextFieldDelegate {
+extension ColorViewController: UITextFieldDelegate {
     //скрываем клавиатуру при нажатии кнопки
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -114,7 +118,33 @@ extension ViewController: UITextFieldDelegate {
 
 //MARK: functions
 
-extension ViewController {
+extension ColorViewController {
+    
+    
+    func setSliderValue() {
+        
+        let ciColor = CIColor(color: ColorOfMainView)
+        
+        redSlider.value =  Float(ciColor.red)
+        greenSlider.value = Float(ciColor.green)
+        blueSlider.value = Float(ciColor.blue)
+    }
+    
+    func loadUIElements() {
+        showSlider(slider: redSlider, min: 0, max: 1, value: redSlider.value, color: .red)
+        showSlider(slider: greenSlider, min: 0, max: 1, value: greenSlider.value, color: .green)
+        showSlider(slider: blueSlider, min: 0, max: 1, value: blueSlider.value, color: .blue)
+        
+        redLabel.text = String(format: "%02.2f", redSlider.value)
+        greenLabel.text = String(format: "%02.2f", greenSlider.value)
+        blueLabel.text = String(format: "%02.2f", blueSlider.value)
+        
+        redTextField.text = String(format: "%02.2f", redSlider.value)
+        greenTextField.text = String(format: "%02.2f", greenSlider.value)
+        blueTextField.text = String(format: "%02.2f", blueSlider.value)
+    }
+    
+    
     
     func showSlider(slider: UISlider, min: Float, max: Float, value: Float, color: UIColor) {
         slider.minimumValue = min
@@ -124,7 +154,10 @@ extension ViewController {
     }
     
     func updateViewColor(view: UIView){
-        view.backgroundColor = UIColor(displayP3Red: CGFloat(redSlider.value), green: CGFloat(greenSlider.value), blue: CGFloat(blueSlider.value), alpha: 1)
+        
+        ColorOfMainView = UIColor(displayP3Red: CGFloat(redSlider.value), green: CGFloat(greenSlider.value), blue: CGFloat(blueSlider.value), alpha: 1)
+        view.backgroundColor = ColorOfMainView
+        
     }
     
     func sliderWasChanged(slider: UISlider, slidersLabel: UILabel, slidersColor: Float, textField: UITextField) {
@@ -171,7 +204,6 @@ extension ViewController {
         self.blueTextField.resignFirstResponder()
         
     }
-    
     
 }
 
